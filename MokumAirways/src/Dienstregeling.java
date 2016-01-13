@@ -41,10 +41,14 @@ public class Dienstregeling {
 		{312,322,57,159,135,450,15,12,92,47,41,440,315,39,193,124,224,68,439,28,290,287,366,153,427,115,0,314},
 		{441,256,62,423,215,432,412,128,361,128,138,360,87,181,113,389,200,141,300,281,337,9,180,203,379,290,165,0},
 	};
-
-	private static final	int MINUTEN_PER_DAG	= 1200; 	//Het aantal minuten waartussen gevlogen kan worden (20*60)
-	private static final	int	VLOOTGROOTTE	= 6;		//Het aantal vliegtuigen in de vloot van Mokum Airlines
-	private					Vliegtuig[]	dienstRegeling;		//De verzameling vliegtuigen van Mokum Airlines
+	
+	
+	
+	
+	
+	private static final	int 			MINUTEN_PER_DAG		= 1200; 	//Het aantal minuten waartussen gevlogen kan worden (20*60)
+	private static final	int			VLOOTGROOTTE			= 1;		//Het aantal vliegtuigen in de vloot van Mokum Airlines
+	private					Vliegtuig[]	dienstRegeling;					//De verzameling vliegtuigen van Mokum Airlines
 	
 	//constructors
 	public Dienstregeling() {
@@ -53,10 +57,20 @@ public class Dienstregeling {
 	
 	public Dienstregeling(boolean x) {
 		dienstRegeling = new Vliegtuig[VLOOTGROOTTE];
-		maakRandomDienstregeling();
+		maakDienstRegelingRedelijkDom();
+		//maakRandomDienstregeling();
 	}
 	
-	/* METHODEN */	
+	/* METHODEN */
+	
+	public void maakDienstRegelingRedelijkDom(){
+		for(int i = 0; i < VLOOTGROOTTE; i++){
+			dienstRegeling[i] = new Vliegtuig();
+			
+			
+		}
+	}
+	
 	//Geeft het vliegtuig op index
 	public Vliegtuig geefVliegtuig(int index) {
 		if(index > VLOOTGROOTTE -1) {

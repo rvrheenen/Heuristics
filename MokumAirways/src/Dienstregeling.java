@@ -47,7 +47,7 @@ public class Dienstregeling {
 	
 	
 	private static final	int 			MINUTEN_PER_DAG		= 1200; 	//Het aantal minuten waartussen gevlogen kan worden (20*60)
-	private static final	int			VLOOTGROOTTE			= 6;		//Het aantal vliegtuigen in de vloot van Mokum Airlines
+	private static final	int			VLOOTGROOTTE			= 1;		//Het aantal vliegtuigen in de vloot van Mokum Airlines
 	private					Vliegtuig[]	dienstRegeling;					//De verzameling vliegtuigen van Mokum Airlines
 	
 	//constructors
@@ -57,10 +57,19 @@ public class Dienstregeling {
 	
 	public Dienstregeling(boolean x) {
 		dienstRegeling = new Vliegtuig[VLOOTGROOTTE];
-		maakRandomDienstregeling();
+		maakDienstRegelingRedelijkDom();
+		//maakRandomDienstregeling();
 	}
 	
 	/* METHODEN */
+	
+	public void maakDienstRegelingRedelijkDom(){
+		for(int i = 0; i < VLOOTGROOTTE; i++){
+			dienstRegeling[i] = new Vliegtuig();
+			
+			
+		}
+	}
 	
 	//Geeft het vliegtuig op index
 	public Vliegtuig geefVliegtuig(int index) {

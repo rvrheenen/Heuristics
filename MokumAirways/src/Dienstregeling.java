@@ -41,14 +41,10 @@ public class Dienstregeling {
 		{312,322,57,159,135,450,15,12,92,47,41,440,315,39,193,124,224,68,439,28,290,287,366,153,427,115,0,314},
 		{441,256,62,423,215,432,412,128,361,128,138,360,87,181,113,389,200,141,300,281,337,9,180,203,379,290,165,0},
 	};
-	
-	
-	
-	
-	
-	private static final	int 			MINUTEN_PER_DAG		= 1200; 	//Het aantal minuten waartussen gevlogen kan worden (20*60)
-	private static final	int			VLOOTGROOTTE			= 6;		//Het aantal vliegtuigen in de vloot van Mokum Airlines
-	private					Vliegtuig[]	dienstRegeling;					//De verzameling vliegtuigen van Mokum Airlines
+
+	private static final	int MINUTEN_PER_DAG	= 1200; 	//Het aantal minuten waartussen gevlogen kan worden (20*60)
+	private static final	int	VLOOTGROOTTE	= 6;		//Het aantal vliegtuigen in de vloot van Mokum Airlines
+	private					Vliegtuig[]	dienstRegeling;		//De verzameling vliegtuigen van Mokum Airlines
 	
 	//constructors
 	public Dienstregeling() {
@@ -60,8 +56,7 @@ public class Dienstregeling {
 		maakRandomDienstregeling();
 	}
 	
-	/* METHODEN */
-	
+	/* METHODEN */	
 	//Geeft het vliegtuig op index
 	public Vliegtuig geefVliegtuig(int index) {
 		if(index > VLOOTGROOTTE -1) {
@@ -87,12 +82,12 @@ public class Dienstregeling {
 	//Telt het totaal aantal kilometers dat passagiers hebben afgelegd
 	public int telPassagiersKilometers() {
 		int		passagiersKM		= 0;
-		int[][] 	vertrekArray 		= maakVertrekArray();
-		int[][] 	passagiersMatrix	= new int[PASSENGERS.length][PASSENGERS.length];
+		int[][] vertrekArray 		= maakVertrekArray();
+		int[][] passagiersMatrix	= new int[PASSENGERS.length][PASSENGERS.length];
 		multiArrayCopy(PASSENGERS, passagiersMatrix);
 		
 		for(int[] vertrek : vertrekArray) {
-			Landing l		 = new Landing(); //om de afstanden op te vragen
+			Landing l		= new Landing(); //om de afstanden op te vragen
 			int vertrekpunt = vertrek[1];
 			int bestemming  = vertrek[2];
 			int capaciteit  = vertrek[3];
@@ -148,19 +143,21 @@ public class Dienstregeling {
 
    // Helpt een multidimensionale array efficient te sorteren 
 	// partition a[left] to a[right], assumes left < right
-    private int partition(int[][] a, int left, int right) {
-        int i = left - 1;
-        int j = right;
-        while (true) {
-            while (a[++i][0] < a[right][0])     
-                ;                               
-            while (a[right][0] < a[--j][0])     
-                if (j == left) break;           
-            if (i >= j) break;                  
-            exch(a, i, j);                      
-        }
-        exch(a, i, right);                      
-        return i;
+	private int partition(int[][] a, int left, int right) {
+		int i = left - 1;
+		int j = right;
+		while (true) {
+			while (a[++i][0] < a[right][0])
+				;
+			while (a[right][0] < a[--j][0])
+				if (j == left)
+					break;
+			if (i >= j)
+				break;
+			exch(a, i, j);
+		}
+		exch(a, i, right);
+		return i;
     }
 
     // Helpt een multidimensionale array efficient te sorteren
@@ -177,6 +174,5 @@ public class Dienstregeling {
 		System.arraycopy(source[i],0,destination[i],0,source[i].length);
 		}
 	}
-
 
 }

@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class GlobalTraffic extends JPanel
 {
-//	private static final int		REGELDIKTE = 13;	//Het aantal pixels dat een lijn hoog is
+//	private static final int REGELDIKTE = 13;	//Het aantal pixels dat een lijn hoog is
 	
 	private static final Color[] LIJN_KLEUREN = {	//Elk vliegtuig heeft een vaste kleur
 		Color.cyan,
@@ -85,9 +85,9 @@ public class GlobalTraffic extends JPanel
 	public void tekenKaart(Graphics g) {
 		g.drawImage(achtergrond, 0, 0,null);
 		for (int i=0; i<City.CITIES.size();i++) {
-			City location = City.CITIES.get(i);
+			City location 	  = City.CITIES.get(i);
 			int[] coordinaten = location.getCoordinates();
-			Color color = location.getColor();
+			Color color 	  = location.getColor();
 
 			g.setColor(color);
 			g.fillRect(coordinaten[0] - 3, coordinaten[1] - 3, 6, 6);

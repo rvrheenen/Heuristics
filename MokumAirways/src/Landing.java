@@ -19,7 +19,7 @@ public class Landing {
 	private Random	RANDOM = new Random(); //Nodig voor het genereren van random getallen
 	
 	private static final		int		VERWERK_TIJD	= 60; 	//De tijd in minuten die nodig is om het toestel schoon te maken en passagiers te verwisselen
-	private static final		int		TANK_TIJD	= 60; 	//De tijd in minuten die EXTRA nodig om te tanken
+	private static final		int		TANK_TIJD		= 60; 	//De tijd in minuten die EXTRA nodig om te tanken
 	private static final		int		MAX_GRONDTIJD	= 180; 	//De maximale tijd in minuten dat een vliegtuig EXTRA aan de grond staat (deze ben je vrij te veranderen)
 	
 	/* ********************************************************************** *\
@@ -132,7 +132,7 @@ public class Landing {
 	//Wijzigt de locatie van deze landing en update de tijden
 	public boolean wijzigLocatie(City nieuweWaarde) {
 		if(geefIndex(nieuweWaarde.getName()) != -1) {
-			locatie 		= nieuweWaarde;
+			locatie 	= nieuweWaarde;
 			verwerktijd	= bepaalVerwerktijd();
 			return true;
 		}

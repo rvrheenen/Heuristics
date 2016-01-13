@@ -1,4 +1,5 @@
 package src;
+
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Dimension;
@@ -21,22 +22,22 @@ import javax.swing.plaf.basic.BasicArrowButton;
 
 @SuppressWarnings("serial")
 public class MokumFrame extends JFrame {
-	private Button redrawButton;			// Roept de redraw methode aan
-	private Scrollbar schaal;				// Laat de gebruiker de schaal tijdens de run
-	private BasicArrowButton left, right;	// veranderen
+	private Button redrawButton; // Roept de redraw methode aan
+	private Scrollbar schaal; // Laat de gebruiker de schaal tijdens de run
+	private BasicArrowButton left, right; // veranderen
 	private GlobalTraffic traffic;
 	private MokumFrame frame;
-	private DienstregelingCanvas dienst; 
+	private DienstregelingCanvas dienst;
 	private static int mouseX, mouseY;
 	private JLabel mouseposition;
 
 	public MokumFrame() {
-		setTitle("Heuristieken 2014 - Mokum Airlines!");
+		setTitle("Heuristieken 2015 - Mokum Airlines!");
 		setLayout(new BorderLayout());
 		setSize(1024, 768);
 
 		frame = this;
-		
+
 		Dienstregeling dienstregeling = maakDienstregeling();
 
 		schaal = new Scrollbar();
@@ -45,26 +46,26 @@ public class MokumFrame extends JFrame {
 		schaal.setOrientation(Scrollbar.HORIZONTAL);
 		schaal.setValue(45);
 		schaal.setPreferredSize(new Dimension(250, 20));
-		redrawButton = new Button("Redraw!");
-		left = new BasicArrowButton(BasicArrowButton.WEST);
-		right = new BasicArrowButton(BasicArrowButton.EAST);
-		
-		
-		traffic = new GlobalTraffic(dienstregeling);
-		dienst = new DienstregelingCanvas(dienstregeling);
 
-		schaal.addAdjustmentListener(new AdjustmentListener(){
-			//Houdt bij of er aan de scrollbar gezet is of niet
+		redrawButton = new Button("Redraw!");
+		left 		 = new BasicArrowButton(BasicArrowButton.WEST);
+		right 		 = new BasicArrowButton(BasicArrowButton.EAST);
+		traffic 	 = new GlobalTraffic(dienstregeling);
+		dienst 		 = new DienstregelingCanvas(dienstregeling);
+
+		schaal.addAdjustmentListener(new AdjustmentListener() {
+			// Houdt bij of er aan de scrollbar gezet is of niet
 			public void adjustmentValueChanged(AdjustmentEvent e) {
 				double scaleFactor = (double) schaal.getValue() / 100;
 				dienst.setScaleFactor(scaleFactor);
 				frame.redraw(200);
-		   }
+			}
 		});
-		redrawButton.addActionListener(new ActionListener(){
-			//Houdt bij of er op de knop gedrukt is
+
+		redrawButton.addActionListener(new ActionListener() {
+			// Houdt bij of er op de knop gedrukt is
 			public void actionPerformed(ActionEvent evt) {
-				if(evt.getSource() == redrawButton){
+				if (evt.getSource() == redrawButton) {
 					Dienstregeling dienstregeling = maakDienstregeling();
 					traffic.setDienstregeling(dienstregeling);
 					dienst.setDienstregeling(dienstregeling);
@@ -72,26 +73,26 @@ public class MokumFrame extends JFrame {
 				}
 			}
 		});
-		
-		left.addActionListener(new ActionListener(){
-			//Houdt bij of er op de knop gedrukt is
+
+		left.addActionListener(new ActionListener() {
+			// Houdt bij of er op de knop gedrukt is
 			public void actionPerformed(ActionEvent evt) {
-				if(evt.getSource() == left){
+				if (evt.getSource() == left) {
 					int val = schaal.getValue();
-					schaal.setValue(val-1);
+					schaal.setValue(val - 1);
 					double scaleFactor = (double) schaal.getValue() / 100;
 					dienst.setScaleFactor(scaleFactor);
 					frame.redraw(200);
 				}
 			}
 		});
-		
-		right.addActionListener(new ActionListener(){
-			//Houdt bij of er op de knop gedrukt is
+
+		right.addActionListener(new ActionListener() {
+			// Houdt bij of er op de knop gedrukt is
 			public void actionPerformed(ActionEvent evt) {
-				if(evt.getSource() == right){
+				if (evt.getSource() == right) {
 					int val = schaal.getValue();
-					schaal.setValue(val+1);
+					schaal.setValue(val + 1);
 					double scaleFactor = (double) schaal.getValue() / 100;
 					dienst.setScaleFactor(scaleFactor);
 					frame.redraw(200);
@@ -105,54 +106,53 @@ public class MokumFrame extends JFrame {
 		buttonPane.add(schaal);
 		buttonPane.add(right);
 		buttonPane.add(redrawButton);
-		
-		buttonPane.setPreferredSize(new Dimension(1024,40));
-		
+
+		buttonPane.setPreferredSize(new Dimension(1024, 40));
+
 		this.add(buttonPane, BorderLayout.SOUTH);
-		
+
 		JPanel topPanel = new JPanel();
-		topPanel.add(traffic,BorderLayout.CENTER);
+		topPanel.add(traffic, BorderLayout.CENTER);
 		traffic.setLocation(frame.getWidth() / 2, 0);
-		
-		this.add(topPanel,BorderLayout.NORTH);
-		this.add(dienst,BorderLayout.CENTER);
-		
+
+		this.add(topPanel, BorderLayout.NORTH);
+		this.add(dienst, BorderLayout.CENTER);
+
 		// Exit the program when the window is closed
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		// Close the window when escape is pressed
-		this.addKeyListener(new KeyAdapter(){
+		this.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				super.keyPressed(e);
-				if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 					System.exit(0);
 				}
 			}
 		});
-		
+
 		mouseX = 0;
 		mouseY = 0;
-		
-		this.addMouseMotionListener(new MouseMotionAdapter(){
+
+		this.addMouseMotionListener(new MouseMotionAdapter() {
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				super.mouseMoved(e);
 				mouseX = (e.getX());
 				mouseY = (e.getY()) - 25; // offset the 25px top bar
-				
-				mouseposition.setText(String.format("Mouse: %d, %d",mouseX,mouseY));
+
+				mouseposition.setText(String.format("Mouse: %d, %d", mouseX, mouseY));
 			}
-			
 		});
-		
+
 		mouseposition = new JLabel("Mouse:");
 		buttonPane.add(mouseposition);
-		
+
 		// Resize the window
 		pack();
-		
+
 		setVisible(true);
 		frame.redraw(200);
 	}
@@ -168,15 +168,14 @@ public class MokumFrame extends JFrame {
 
 	public static void main(String[] args) {
 		City.initialiseCities();
-		
 		new MokumFrame();
 	}
-	
-	public void redraw(int delay){
+
+	public void redraw(int delay) {
 		repaint();
 		invalidate();
 		validate();
-		
+
 		try {
 			Thread.sleep(delay);
 		} catch (InterruptedException e) {

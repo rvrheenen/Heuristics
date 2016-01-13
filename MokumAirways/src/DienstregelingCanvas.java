@@ -70,9 +70,9 @@ public class DienstregelingCanvas extends JPanel {
 		g.setColor(Color.black);
 		g.drawString("Home", x + 20, y);
 		for(int i=0; i<32;i++) {
-			double convert = x + 130 + i * (60 * scaleFactor);
-			int xPointer 	= (int) convert;
-			int time			= (6 + i) % 24;
+			double convert	= x + 130 + i * (60 * scaleFactor);
+			int xPointer	= (int) convert;
+			int time		= (6 + i) % 24;
 			String timeStr;
 			if(i<4) {
 				timeStr = "0" + time;
@@ -99,8 +99,8 @@ public class DienstregelingCanvas extends JPanel {
 	public int tekenThuisbasis(Vliegtuig vliegtuig, int xPointer, int yPointer, Graphics g) {
 		//Teken ThuisBasis
 		Landing thuis		= vliegtuig.geefLanding(0);
-		double tmp 			= thuis.geefGrondtijd() * scaleFactor;
-		int 	 grondtijd	= (int) tmp;
+		double tmp			= thuis.geefGrondtijd() * scaleFactor;
+		int	   grondtijd	= (int) tmp;
 		
 		g.setColor(thuis.geefLocatie().getColor());
 		g.fillRect(xPointer, yPointer, 30 + grondtijd, 13);
@@ -122,13 +122,13 @@ public class DienstregelingCanvas extends JPanel {
 		Landing vertrek 	= vliegtuig.geefLanding(i-1);
 		Landing doel	 	= vliegtuig.geefLanding(i);
 		double  tmp		 	= (double) vertrek.geefAfstandNaar(doel.geefLoc()) / vliegtuig.geefSnelheid() * (60 * scaleFactor);
-		int	  routeTijd	= (int) tmp;
+		int	  	routeTijd	= (int) tmp;
 		
 		//bepaal grondtijd
-		tmp 				= doel.geefTotaleGrondtijd() * scaleFactor;
+		tmp 			= doel.geefTotaleGrondtijd() * scaleFactor;
 		int grondtijd 	= (int) tmp;
 		tmp				= doel.geefVerwerktijd() * scaleFactor;
-		int verwerktijd= (int) tmp;
+		int verwerktijd = (int) tmp;
 		
 		//Teken de vlucht
 		g.setColor(Color.gray);
@@ -149,16 +149,13 @@ public class DienstregelingCanvas extends JPanel {
 	
 	private static int getBrightness(Color c) {
 	    return (int) Math.sqrt(
-	      c.getRed() * c.getRed() * .241 +
+	      c.getRed()   * c.getRed()   * .241 +
 	      c.getGreen() * c.getGreen() * .691 +
-	      c.getBlue() * c.getBlue() * .068);
+	      c.getBlue()  * c.getBlue()  * .068);
 	}
 	 
 	public static Color getForeGroundColorBasedOnBGBrightness(Color color) {
-	    if (getBrightness(color) < 130)
-	        return Color.white;
-	    else
-	        return Color.black;
+	    return (getBrightness(color) < 130) ? Color.white : Color.black;
 	}
 	
 	public Dimension getPreferredSize(){

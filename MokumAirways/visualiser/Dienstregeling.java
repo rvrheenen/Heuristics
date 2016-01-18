@@ -42,9 +42,9 @@ public class Dienstregeling {
 		{441,256,62,423,215,432,412,128,361,128,138,360,87,181,113,389,200,141,300,281,337,9,180,203,379,290,165,0},
 	};
 	
-	private static final	int 	MINUTEN_PER_DAG		= 1200; 	//Het aantal minuten waartussen gevlogen kan worden (20*60)
-	private static final	int		VLOOTGROOTTE		= 1;	//Het aantal vliegtuigen in de vloot van Mokum Airlines
-	private					Vliegtuig[]	dienstRegeling;				//De verzameling vliegtuigen van Mokum Airlines
+	private static final int MINUTEN_PER_DAG = 1200; 		//Het aantal minuten waarin gevlogen kan worden (20*60)
+	private static final int VLOOTGROOTTE 	 = 6;			//Het aantal vliegtuigen in de vloot van Mokum Airlines
+	private					 Vliegtuig[]	dienstRegeling;	//De verzameling vliegtuigen van Mokum Airlines
 	
 	//constructors
 	public Dienstregeling() {
@@ -53,28 +53,28 @@ public class Dienstregeling {
 	
 	public Dienstregeling(boolean x) {
 		dienstRegeling = new Vliegtuig[VLOOTGROOTTE];
-		//maakDienstRegelingRedelijkDom();
+		maakDienstRegelingRedelijkDom();
 		//maakRandomDienstregeling();
 	}
 	
-	public Dienstregeling(String[] args) {
-		dienstRegeling = new Vliegtuig[VLOOTGROOTTE];
-		displayInput(args);
+	public Dienstregeling(String[][] input) {
+		dienstRegeling = new Vliegtuig[input.length];
+		displayInput(input);
 	}
 	
 	/* METHODEN */
 	
-	public void displayInput(String[] args){
-		for(int i = 0; i < Integer.parseInt(args[0]); i++){
+	public void displayInput(String[][] input){
+		for(int i = 0; i < input.length; i++){
 			dienstRegeling[i] = new Vliegtuig();
-			
+			dienstRegeling[i].makeRoute(MINUTEN_PER_DAG, input[i]);
 		}
 	}
 	
 	public void maakDienstRegelingRedelijkDom(){
 		for(int i = 0; i < VLOOTGROOTTE; i++){
 			dienstRegeling[i] = new Vliegtuig();
-			
+			dienstRegeling[i].maakRandomRoute(MINUTEN_PER_DAG);
 		}
 	}
 	
@@ -197,3 +197,5 @@ public class Dienstregeling {
 	}
 
 }
+
+

@@ -53,8 +53,8 @@ public class Dienstregeling {
 	
 	public Dienstregeling(boolean x) {
 		dienstRegeling = new Vliegtuig[VLOOTGROOTTE];
-		maakDienstRegelingRedelijkDom();
-		//maakRandomDienstregeling();
+//		maakDienstRegelingRedelijkDom();
+		maakRandomDienstregeling();
 	}
 	
 	/* METHODEN */

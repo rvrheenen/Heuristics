@@ -12,11 +12,11 @@ public class Landing {
 	/* ********************************************************************** *\
 	|= ========================== Variabelen ================================ =|
 	\* ********************************************************************** */
-	private	City 	locatie;			// De stad van de landing
-	private	int		grondtijd;		//De tijd in minuten die het toestel EXTRA aan de grond blijft
-	private	int 	verwerktijd;	//De verplichte tijd in minuten aan de grond (tanken + passagiers wisselen)
-	private boolean	hierTanken;		//Of het vliegtuig wel of niet tankt tijdens deze landing
-	private Random	RANDOM = new Random(); //Nodig voor het genereren van random getallen
+	private	City 	locatie;				// De stad van de landing
+	private	int		grondtijd;				// De tijd in minuten die het toestel EXTRA aan de grond blijft
+	private	int 	verwerktijd;			// De verplichte tijd in minuten aan de grond (tanken + passagiers wisselen)
+	private boolean	hierTanken;				// Of het vliegtuig wel of niet tankt tijdens deze landing
+	private Random	RANDOM = new Random(); 	// Nodig voor het genereren van random getallen
 	
 	private static final		int		VERWERK_TIJD	= 60; 	//De tijd in minuten die nodig is om het toestel schoon te maken en passagiers te verwisselen
 	private static final		int		TANK_TIJD		= 60; 	//De tijd in minuten die EXTRA nodig om te tanken

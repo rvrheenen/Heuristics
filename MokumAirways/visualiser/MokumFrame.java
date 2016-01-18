@@ -31,7 +31,7 @@ public class MokumFrame extends JFrame {
 	private static int mouseX, mouseY;
 	private JLabel mouseposition;
 
-	public MokumFrame(String[] args) {
+	public MokumFrame() {
 		setTitle("Heuristieken 2015 - Mokum Airlines!");
 		setLayout(new BorderLayout());
 		setSize(1024, 768);
@@ -66,7 +66,7 @@ public class MokumFrame extends JFrame {
 			// Houdt bij of er op de knop gedrukt is
 			public void actionPerformed(ActionEvent evt) {
 				if (evt.getSource() == redrawButton) {
-					Dienstregeling dienstregeling = maakDienstregeling(args);
+					Dienstregeling dienstregeling = maakDienstregeling();
 					traffic.setDienstregeling(dienstregeling);
 					dienst.setDienstregeling(dienstregeling);
 					frame.redraw(200);
@@ -159,14 +159,30 @@ public class MokumFrame extends JFrame {
 
 	// Maakt een random dienstregeling aan
 	// || In deze methode zou je je algoritme kunnen plaatsen in plaats van de 'domme' random methode die nu gebruikt wordt
-	public Dienstregeling maakDienstregeling(String[] args) {
-		Dienstregeling d = new Dienstregeling(args);
+	public Dienstregeling maakDienstregeling() {
+		//placeholder for when we use 6 planes
+//		String[][] youri = 
+//			{
+//					{0,1,9,1,26,0},
+//					{},
+//					{},
+//					{},
+//					{},
+//					{},
+//			};
+		
+		//Dummy data for 1 plane, flying Ams, Ath, Glas, Ath, Tall, Ams
+		String[][] youri = 
+			{
+					{"0","1","9","1","26","0"}
+			};
+		Dienstregeling d = new Dienstregeling(youri);
 		return d;
 	}
 
 	public static void main(String[] args) {
 		City.initialiseCities();
-		new MokumFrame(args);
+		new MokumFrame();
 	}
 
 	public void redraw(int delay) {

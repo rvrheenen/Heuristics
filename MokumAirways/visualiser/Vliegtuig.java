@@ -161,6 +161,17 @@ public class Vliegtuig {
 		}
 		planTankbeurten();
 	}
+	
+	public void makeRoute(int duur, String[] input){ //!!PROCEED HERE!!
+		aantalLandingen = 0;
+		route = new Landing[MAX_ROUTE_LENGTE];
+		for (int i = 0; i< input.length; i++){
+			// perform landings per city
+			// if a "t" is found also tank in this city
+			// keep track of passenger matrix && kilometers
+			
+		}
+	}
 
 	// WijzigLanding bestaat uit meerdere methoden die eigenschappen van een landing veranderen
 	// Bijvoorbeeld grondtijd, locatie of tanken

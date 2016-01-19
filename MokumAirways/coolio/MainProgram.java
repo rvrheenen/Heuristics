@@ -2,7 +2,7 @@ package coolio;
 
 public class MainProgram {
 	OpgeslagenData data = new OpgeslagenData();
-	int currentStad = 0;
+	int currentStad;
 	int currentTime = 0;
 	static int maxTime = 20 * 60;
 	static int refuel = 60;
@@ -12,6 +12,9 @@ public class MainProgram {
 	static int maxPassengers = 199;
 	int KMsLeft = 3199;
 	static int maxKMs = 3199;
+	static int tries = 200000;
+	static int startCity = 0;
+	Heuristic h= new Heuristic(tries);
 	
 	MainProgram(){
 		for(int x = 0; x < data.AFSTAND.length; x++){
@@ -21,6 +24,14 @@ public class MainProgram {
 				}
 			}
 		}
+		currentStad = startCity;
+	}
+	
+	public void reset(){
+		currentTime = 0;
+		totalWorth = 0;
+		KMsLeft = maxKMs;
+		currentStad = startCity;
 	}
 	
 	public boolean needToTank(int x){
@@ -50,7 +61,7 @@ public class MainProgram {
 	}
 	
 	public boolean canFlyBack(int dest){
-		if(currentTime + flyTime(dest) + flyTime(0) < maxTime){
+		if(currentTime + flyTime(dest) + flyTime(startCity) < maxTime){
 			return true;
 		}
 		return false;
@@ -62,9 +73,17 @@ public class MainProgram {
 	
 	public int score(int destination, int passengers){
 		int total = 0;
-		total += data.AFSTAND[currentStad][destination];
-		int passKM = total * passengers;
-		total = passKM + total;
+		
+		int afstand = data.AFSTAND[currentStad][destination];
+		// time
+		total += flyTime(destination) * h.getTime();
+		// dist
+		total += afstand * h.getDist();
+		// pass km
+		total += afstand * passengers * h.getKMs();
+		// fuel
+		total -= (KMsLeft - afstand)* h.getDist();
+
 		return total;
 	}
 	
@@ -76,16 +95,49 @@ public class MainProgram {
 		}
 	}
 	
+	public void doALot(){
+		int[][] totals = new int[20][5];
+		for(int j = 0; j < 20; j++){
+			h = new Heuristic(tries);
+			for(int i = 0; i < tries; i++){
+				int test = doOne();
+				h.setResult(test);
+				h.next();
+				reset();
+				data = new OpgeslagenData();
+			}
+			totals[j] = h.getBestResult();
+		}
+		int best = 0;
+		for(int i = 1; i < totals.length; i++){
+			if(totals[i][h.RESULT] > totals[best][h.RESULT]){
+				best = i;
+			}
+		}
+		System.out.println(totals[best][h.DIST]);
+		System.out.println(totals[best][h.FUEL]);
+		System.out.println(totals[best][h.KM]);
+		System.out.println(totals[best][h.TIME]);
+		System.out.println(totals[best][h.RESULT]);
+	}
+	
 	public void start(String[] args){
-		
-		
-		
-		//for(int i = 0; i < 10; i++){
-		while(true){
+		if(1==1){
+			int[] theOne = {344,314,146,352};
+			h = new Heuristic(theOne);
+			System.out.println(doOne());
+		} else {
+			doALot();
+		}
+	}
+	
+	public int doOne(){
+		int bestWorth = 10;
+		while(bestWorth != 0){
 			int bestCity = currentStad;
-			int bestWorth = 0;
+			bestWorth = 0;
 			for(int x = 0; x < data.PASSENGERS.length; x++){
-				if(data.toTest[x] == 1 && possibleFlight(x)){
+				if(data.toTest[x] == 1 && possibleFlight(x) && x != currentStad){
 					int worth = score(x, maxPassenger(x));
 					if(worth > bestWorth){
 						bestCity = x;
@@ -93,9 +145,8 @@ public class MainProgram {
 					}
 				}
 			}
-			if(bestWorth == 0){
-				break;
-			}
+			if(bestWorth != 0){
+			
 			
 			
 			int passengersToBring = maxPassenger(bestCity);
@@ -106,19 +157,28 @@ public class MainProgram {
 				KMsLeft = maxKMs;
 			}
 			KMsLeft -= data.AFSTAND[currentStad][bestCity];
-			totalWorth += data.AFSTAND[currentStad][bestCity] * passengersToBring;
+			int saveKms = data.AFSTAND[currentStad][bestCity] * passengersToBring;
+			totalWorth += saveKms;
 			data.PASSENGERS[currentStad][bestCity] -= passengersToBring;
 			System.out.println("afstand:" +data.AFSTAND[currentStad][bestCity]);
 			currentStad = bestCity;
-			
-			System.out.println("Volgende stad: "+data.steden[bestCity]+" "+bestWorth+" time: "+currentTime/60);
-			
+			System.out.println("Aantal passagiers"+passengersToBring);
+			System.out.println("Volgende stad: "+data.steden[bestCity]+" PassKM "+saveKms+" time: "+currentTime/60);
+			}
 		}
-		int passengersToBring = maxPassenger(0);
-		currentTime = currentTime + (data.AFSTAND[currentStad][0] / speed)*60 + land;
-		totalWorth += data.AFSTAND[currentStad][0] * passengersToBring;
-		System.out.println("Volgende stad: "+data.steden[0]+" "+score(0,passengersToBring)+" time: "+currentTime/60);
+		int passengersToBring = maxPassenger(startCity);
+		currentTime = currentTime + (data.AFSTAND[currentStad][startCity] / speed)*60 + land;
+		totalWorth += data.AFSTAND[currentStad][startCity] * passengersToBring;
+		System.out.println("afstand:" +data.AFSTAND[currentStad][startCity]);
+		System.out.println("Aantal passagiers"+passengersToBring);
+		System.out.println("Volgende stad: "+data.steden[startCity]+" "+score(startCity,passengersToBring)+" time: "+currentTime/60);
+		KMsLeft -= data.AFSTAND[currentStad][startCity];
+		System.out.println("Nog in de tank: "+KMsLeft);
 		System.out.println("Totaal: "+totalWorth);
+		if(KMsLeft < 0){
+			totalWorth = 0;
+		}
+		return totalWorth;
 	}
 	
 	public static void main(String[] args){

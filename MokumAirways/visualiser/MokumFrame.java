@@ -20,6 +20,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.plaf.basic.BasicArrowButton;
 
+import coolio.*;
+
 @SuppressWarnings("serial")
 public class MokumFrame extends JFrame {
 	private Button redrawButton; // Roept de redraw methode aan
@@ -171,9 +173,11 @@ public class MokumFrame extends JFrame {
 //					{"0", "9", "6T", "0", "!", "", "", "", "", ""},
 //			};
 		
-		String[][] youri = coolio.MainProgram(Dienstregeling.PASSENGERS);
+		coolio.MainProgram c = new coolio.MainProgram();
 		
-		Dienstregeling d = new Dienstregeling(youri);
+		String[][] algo = c.getSchedule(Dienstregeling.PASSENGERS);
+		
+		Dienstregeling d = new Dienstregeling(algo);
 		return d;
 	}
 

@@ -19,7 +19,7 @@ public class MainProgram {
 	Heuristic h= new Heuristic(tries);
 	String[][] schedule = new String[6][10];
 	
-	MainProgram(){
+	public MainProgram(){
 		for(int x = 0; x < data.AFSTAND.length; x++){
 			for(int y = 0; y < data.AFSTAND[0].length; y++){
 				if(data.AFSTAND[x][y] > 3199){

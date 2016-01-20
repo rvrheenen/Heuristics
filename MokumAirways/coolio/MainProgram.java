@@ -4,7 +4,7 @@ public class MainProgram {
 	OpgeslagenData data = new OpgeslagenData();
 	int currentStad;
 	int currentTime = 0;
-	static int maxTime = 20 * 60;
+	static int maxTime = 21 * 60;
 	static int refuel = 60;
 	static int land = 60;
 	static int speed = 800;
@@ -14,7 +14,10 @@ public class MainProgram {
 	static int maxKMs = 3199;
 	static int tries = 200000;
 	static int startCity = 0;
+	static int theoreticalMax = 2228402;
+	static int numberOfPlanes = 6;
 	Heuristic h= new Heuristic(tries);
+	String[][] schedule = new String[6][10];
 	
 	MainProgram(){
 		for(int x = 0; x < data.AFSTAND.length; x++){
@@ -28,6 +31,14 @@ public class MainProgram {
 	}
 	
 	public void reset(){
+		currentTime = 0;
+		totalWorth = 0;
+		KMsLeft = maxKMs;
+		currentStad = startCity;
+		data = new OpgeslagenData();
+	}
+	
+	void resetForNextPlane(){
 		currentTime = 0;
 		totalWorth = 0;
 		KMsLeft = maxKMs;
@@ -61,8 +72,14 @@ public class MainProgram {
 	}
 	
 	public boolean canFlyBack(int dest){
-		if(currentTime + flyTime(dest) + flyTime(startCity) < maxTime){
-			return true;
+		int totalTime = currentTime + flyTime(dest) + flyTime(startCity);
+		if(totalTime < maxTime){
+			if(KMsLeft - data.AFSTAND[currentStad][dest] - data.AFSTAND[dest][startCity] < 0){
+				totalTime ++;
+			}
+			if(totalTime < maxTime){
+				return true;
+			}
 		}
 		return false;
 	}
@@ -100,7 +117,7 @@ public class MainProgram {
 		for(int j = 0; j < 20; j++){
 			h = new Heuristic(tries);
 			for(int i = 0; i < tries; i++){
-				int test = doOne();
+				int test = doOne(0);
 				h.setResult(test);
 				h.next();
 				reset();
@@ -125,14 +142,26 @@ public class MainProgram {
 		if(1==1){
 			int[] theOne = {344,314,146,352};
 			h = new Heuristic(theOne);
-			System.out.println(doOne());
+			int total = 0;
+			for(int i = 0; i < numberOfPlanes; i++){
+				int localTotal = doOne(i);
+				total += localTotal;
+				System.out.println(localTotal);
+				resetForNextPlane();
+			}
+			double percentage = (double)total / ((double)theoreticalMax * (double)numberOfPlanes) * 100.0;
+			percentage = Math.round(percentage);
+			System.out.println("Total for schedule all planes: "+total+" - "+percentage+"%");
+			
 		} else {
 			doALot();
 		}
 	}
 	
-	public int doOne(){
+	public int doOne(int whichPlane){
 		int bestWorth = 10;
+		String next = "";
+		int scheduleI = 0;
 		while(bestWorth != 0){
 			int bestCity = currentStad;
 			bestWorth = 0;
@@ -150,34 +179,44 @@ public class MainProgram {
 			
 			
 			int passengersToBring = maxPassenger(bestCity);
+			next = ""+bestCity;
 			currentTime += (data.AFSTAND[currentStad][bestCity] / speed)*60 + land;
 			if(needToTank(bestCity)){
 				currentTime += refuel;
-				System.out.println("REFUEL!!!!");
+//				System.out.println("REFUEL!!!!");
+				next = next+"T";
 				KMsLeft = maxKMs;
 			}
 			KMsLeft -= data.AFSTAND[currentStad][bestCity];
 			int saveKms = data.AFSTAND[currentStad][bestCity] * passengersToBring;
 			totalWorth += saveKms;
 			data.PASSENGERS[currentStad][bestCity] -= passengersToBring;
-			System.out.println("afstand:" +data.AFSTAND[currentStad][bestCity]);
+//			System.out.println("afstand:" +data.AFSTAND[currentStad][bestCity]);
 			currentStad = bestCity;
-			System.out.println("Aantal passagiers"+passengersToBring);
-			System.out.println("Volgende stad: "+data.steden[bestCity]+" PassKM "+saveKms+" time: "+currentTime/60);
+//			System.out.println("Aantal passagiers"+passengersToBring);
+//			System.out.println("Volgende stad: "+data.steden[bestCity]+" PassKM "+saveKms+" time: "+currentTime/60);
+			schedule[whichPlane][scheduleI] = next;
+			scheduleI ++;
 			}
 		}
+		next = ""+startCity;
 		int passengersToBring = maxPassenger(startCity);
+		if(needToTank(startCity)){
+			next = next+"T";
+			KMsLeft = maxKMs;
+		}
 		currentTime = currentTime + (data.AFSTAND[currentStad][startCity] / speed)*60 + land;
 		totalWorth += data.AFSTAND[currentStad][startCity] * passengersToBring;
-		System.out.println("afstand:" +data.AFSTAND[currentStad][startCity]);
-		System.out.println("Aantal passagiers"+passengersToBring);
-		System.out.println("Volgende stad: "+data.steden[startCity]+" "+score(startCity,passengersToBring)+" time: "+currentTime/60);
+//		System.out.println("afstand:" +data.AFSTAND[currentStad][startCity]);
+//		System.out.println("Aantal passagiers"+passengersToBring);
+//		System.out.println("Volgende stad: "+data.steden[startCity]+" "+score(startCity,passengersToBring)+" time: "+currentTime/60);
 		KMsLeft -= data.AFSTAND[currentStad][startCity];
-		System.out.println("Nog in de tank: "+KMsLeft);
-		System.out.println("Totaal: "+totalWorth);
+//		System.out.println("Nog in de tank: "+KMsLeft);
+//		System.out.println("Totaal: "+totalWorth);
 		if(KMsLeft < 0){
 			totalWorth = 0;
 		}
+//		System.out.println("=============== NEXT SCHEDULE ===============");
 		return totalWorth;
 	}
 	

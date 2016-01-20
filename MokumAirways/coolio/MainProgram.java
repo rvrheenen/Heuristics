@@ -221,6 +221,7 @@ public class MainProgram {
 			next = next+"T";
 			KMsLeft = maxKMs;
 		}
+		schedule[whichPlane][scheduleI] = next;
 		currentTime = currentTime + (data.AFSTAND[currentStad][startCity] / speed)*60 + land;
 		totalWorth += data.AFSTAND[currentStad][startCity] * passengersToBring;
 //		System.out.println("afstand:" +data.AFSTAND[currentStad][startCity]);

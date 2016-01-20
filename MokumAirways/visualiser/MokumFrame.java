@@ -177,6 +177,13 @@ public class MokumFrame extends JFrame {
 		
 		String[][] algo = c.getSchedule(Dienstregeling.PASSENGERS);
 		
+		for (int i = 0; i < algo.length; i++){
+			for (int j = 0; j < algo[i].length; j++){
+				System.out.printf("%s ", algo[i][j]);
+			}
+			System.out.println();
+		}
+		
 		Dienstregeling d = new Dienstregeling(algo);
 		return d;
 	}

@@ -170,7 +170,7 @@ public class Vliegtuig {
 		boolean tank;
 		City city;
 		for (int i = 0; i< input.length; i++){
-			if (input[i] == "!") break;
+			if (input[i] == null) break;
 			if (input[i].contains("T")) city = City.CITIES.get(Integer.parseInt(input[i].substring(0, input[i].length()-1))); 
 			else city = City.CITIES.get(Integer.parseInt(input[i].substring(0, input[i].length())));
 			tank = input[i].contains("T");

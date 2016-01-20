@@ -20,6 +20,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.plaf.basic.BasicArrowButton;
 
+import coolio.*;
+
 @SuppressWarnings("serial")
 public class MokumFrame extends JFrame {
 	private Button redrawButton; // Roept de redraw methode aan
@@ -161,17 +163,21 @@ public class MokumFrame extends JFrame {
 	// || In deze methode zou je je algoritme kunnen plaatsen in plaats van de 'domme' random methode die nu gebruikt wordt
 	public Dienstregeling maakDienstregeling() {
 		// Dummy data for 6 planes
-		String[][] youri = 
-			{
-					{"0","1","9","1","26T","0", "!", "", "", ""},
-					{"0", "2", "3T", "0", "!", "", "", "", "", ""},
-					{"0", "5", "4", "1T", "0", "!", "", "", "", ""},
-					{"0", "8", "7T", "0", "!", "", "", "", "", ""},
-					{"0", "11", "12T", "0", "!", "", "", "", "", ""},
-					{"0", "9", "6T", "0", "!", "", "", "", "", ""},
-			};
+//		String[][] youri = 
+//			{
+//					{"0","1","9","1","26T","0", "!", "", "", ""},
+//					{"0", "2", "3T", "0", "!", "", "", "", "", ""},
+//					{"0", "5", "4", "1T", "0", "!", "", "", "", ""},
+//					{"0", "8", "7T", "0", "!", "", "", "", "", ""},
+//					{"0", "11", "12T", "0", "!", "", "", "", "", ""},
+//					{"0", "9", "6T", "0", "!", "", "", "", "", ""},
+//			};
 		
-		Dienstregeling d = new Dienstregeling(youri);
+		coolio.MainProgram c = new coolio.MainProgram();
+		
+		String[][] algo = c.getSchedule(Dienstregeling.PASSENGERS);
+		
+		Dienstregeling d = new Dienstregeling(algo);
 		return d;
 	}
 

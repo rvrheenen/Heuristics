@@ -171,7 +171,7 @@ public class MokumFrame extends JFrame {
 //					{"0", "9", "6T", "0", "!", "", "", "", "", ""},
 //			};
 		
-		String[][] youri = coolio.MainProgram();
+		String[][] youri = coolio.MainProgram(Dienstregeling.PASSENGERS);
 		
 		Dienstregeling d = new Dienstregeling(youri);
 		return d;

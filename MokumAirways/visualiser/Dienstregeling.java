@@ -11,7 +11,7 @@ package visualiser;
 public class Dienstregeling {
 	
 	//Het geschatte aantal passagiers dat van rij Y naar kolom X wil vliegen (gaat op index)
-	private static int[][] PASSENGERS = {
+	public static int[][] PASSENGERS = {
 		{0,213,119,278,89,302,388,153,341,273,112,361,302,324,269,206,147,400,367,172,45,321,100,135,86,95,257,371},
 		{373,0,377,341,202,161,354,182,424,69,96,52,141,5,224,425,277,88,380,290,444,89,0,28,376,296,323,7},
 		{403,165,0,327,231,403,113,287,218,264,443,166,436,322,37,206,252,291,414,271,223,287,408,251,127,299,3,58},

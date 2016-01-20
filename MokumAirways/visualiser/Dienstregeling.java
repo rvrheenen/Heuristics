@@ -63,7 +63,6 @@ public class Dienstregeling {
 	}
 	
 	/* METHODEN */
-	
 	public void displayInput(String[][] input){
 		for(int i = 0; i < input.length; i++){
 			dienstRegeling[i] = new Vliegtuig();

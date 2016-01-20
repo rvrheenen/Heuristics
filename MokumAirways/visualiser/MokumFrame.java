@@ -160,22 +160,17 @@ public class MokumFrame extends JFrame {
 	// Maakt een random dienstregeling aan
 	// || In deze methode zou je je algoritme kunnen plaatsen in plaats van de 'domme' random methode die nu gebruikt wordt
 	public Dienstregeling maakDienstregeling() {
-		//placeholder for when we use 6 planes
-//		String[][] youri = 
-//			{
-//					{0,1,9,1,26,0},
-//					{},
-//					{},
-//					{},
-//					{},
-//					{},
-//			};
-		
-		//Dummy data for 1 plane, flying Ams, Ath, Glas, Ath, Tall, Ams
+		// Dummy data for 6 planes
 		String[][] youri = 
 			{
-					{"0","1","9","1","26","0"}
+					{"0","1","9","1","26T","0", "!", "", "", ""},
+					{"0", "2", "3T", "0", "!", "", "", "", "", ""},
+					{"0", "5", "4", "1T", "0", "!", "", "", "", ""},
+					{"0", "8", "7T", "0", "!", "", "", "", "", ""},
+					{"0", "11", "12T", "0", "!", "", "", "", "", ""},
+					{"0", "9", "6T", "0", "!", "", "", "", "", ""},
 			};
+		
 		Dienstregeling d = new Dienstregeling(youri);
 		return d;
 	}

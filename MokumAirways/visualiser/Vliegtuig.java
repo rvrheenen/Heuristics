@@ -162,14 +162,19 @@ public class Vliegtuig {
 		planTankbeurten();
 	}
 	
-	public void makeRoute(int duur, String[] input){ //!!PROCEED HERE!!
+	public void makeRoute(int duur, String[] input){
+		// First input from dummy
+		// {"0","1","9","1","26T","0", "!", "", "", ""}
 		aantalLandingen = 0;
 		route = new Landing[MAX_ROUTE_LENGTE];
+		boolean tank;
+		City city;
 		for (int i = 0; i< input.length; i++){
-			// perform landings per city
-			// if a "t" is found also tank in this city
-			// keep track of passenger matrix && kilometers
-			
+			if (input[i] == "!") break;
+			if (input[i].contains("T")) city = City.CITIES.get(Integer.parseInt(input[i].substring(0, input[i].length()-1))); 
+			else city = City.CITIES.get(Integer.parseInt(input[i].substring(0, input[i].length())));
+			tank = input[i].contains("T");
+			voegLandingToe(city, 0, tank);
 		}
 	}
 

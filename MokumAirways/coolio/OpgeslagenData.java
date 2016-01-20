@@ -7,7 +7,7 @@ public class OpgeslagenData {
 		
 	}
 	
-	
+	// cityname to
 		public String[] steden =  {"Amsterdam", "Athens", "Barcelona", "Berlin", "Bucharest", "Budapest", 
 				"Copenhagen", "Dublin", "Glasgow", "Helsinki", "Istambul", "Kiev", "Lisbon", "London", "Madrid", 
 				"Malta", "Minsk", "Moscow", "Munich", "Oslo", "Paris", "Reykjavik", "Rome", "Sofia", "Stockholm", 
@@ -46,7 +46,7 @@ public class OpgeslagenData {
 			{312,322,57,159,135,450,15,12,92,47,41,440,315,39,193,124,224,68,439,28,290,287,366,153,427,115,0,314},
 			{441,256,62,423,215,432,412,128,361,128,138,360,87,181,113,389,200,141,300,281,337,9,180,203,379,290,165,0},
 		};
-	//
+	// afstand tussen alle steden
 		public int[][] AFSTAND =
 			{
 				{0,2164,1239,577,1789,1146,621,756,711,1501,2212,1768,1864,357,1481,1974,1515,2148,669,912,430,2014,1297,1744,1125,1458,936,1094},

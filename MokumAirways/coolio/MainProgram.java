@@ -27,7 +27,23 @@ public class MainProgram {
 				}
 			}
 		}
+		
+	}
+	
+	public int[][] getPassMatrix(){
+		return data.PASSENGERS;
+	}
+	
+	public String[][] getSchedule(int[][] a){
+		data.PASSENGERS = a;
 		currentStad = startCity;
+		int[] theOne = {344,314,146,352};
+		h = new Heuristic(theOne);
+		for(int i = 0; i < numberOfPlanes; i++){
+			doOne(i);
+			resetForNextPlane();
+		}
+		return schedule;
 	}
 	
 	public void reset(){
@@ -220,10 +236,10 @@ public class MainProgram {
 		return totalWorth;
 	}
 	
-	public static void main(String[] args){
-		int startTime = (int) System.currentTimeMillis();
-		new MainProgram().start(args);
-		int spendTime = (int) System.currentTimeMillis() - startTime;
-		System.out.println("totalRunningTime: "+spendTime);
-	}
+//	public static void main(String[] args){
+//		int startTime = (int) System.currentTimeMillis();
+//		new MainProgram().start(args);
+//		int spendTime = (int) System.currentTimeMillis() - startTime;
+//		System.out.println("totalRunningTime: "+spendTime);
+//	}
 }

@@ -17,7 +17,7 @@ public class MainProgram {
 	static int theoreticalMax = 2228402;
 	static int numberOfPlanes = 6;
 	Heuristic h= new Heuristic(tries);
-	String[][] schedule = new String[6][10];
+	String[][] schedule = new String[6][50];
 	
 	public MainProgram(){
 		for(int x = 0; x < data.AFSTAND.length; x++){
@@ -199,7 +199,7 @@ public class MainProgram {
 			next = ""+bestCity;
 			currentTime += (data.AFSTAND[currentStad][bestCity] / speed)*60 + land;
 			if(needToTank(bestCity)){
-				currentTime += refuel;
+				currentTime += refuel*2;
 				System.out.println("REFUEL!!!!");
 				next = next+"T";
 				KMsLeft = maxKMs;

@@ -34,8 +34,9 @@ public class MainProgram {
 		return data.PASSENGERS;
 	}
 	
-	public String[][] getSchedule(int[][] a){
+	public String[][] getSchedule(int[][] a, int[][] b){
 		data.PASSENGERS = a;
+		data.AFSTAND 	= b;
 		currentStad = startCity;
 		int[] theOne = {344,314,146,352};
 		h = new Heuristic(theOne);

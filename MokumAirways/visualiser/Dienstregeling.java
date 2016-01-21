@@ -18,6 +18,8 @@ public class Dienstregeling {
 	private static final int VLOOTGROOTTE 	 = 6;			//Het aantal vliegtuigen in de vloot van Mokum Airlines
 	private					 Vliegtuig[]	dienstRegeling;	//De verzameling vliegtuigen van Mokum Airlines
 	
+	public int PK = 0;
+	
 	//constructors
 	public Dienstregeling() {
 		dienstRegeling = new Vliegtuig[VLOOTGROOTTE];
@@ -166,6 +168,14 @@ public class Dienstregeling {
 		System.arraycopy(source[i],0,destination[i],0,source[i].length);
 		}
 	}
+    
+    public int getPK(){
+		return PK;
+	}
+    
+    public void setPK(int pk){
+    	PK = pk;
+    }
     
     private static int[][] getPassengersArray(int choice){
     	if (choice == 0) { //original default

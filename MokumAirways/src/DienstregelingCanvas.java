@@ -5,6 +5,8 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import visualiser.MokumFrame;
+
 
 public class DienstregelingCanvas extends JPanel {
 	private static final Color[] LIJN_KLEUREN = {	//Elk vliegtuig heeft een vaste kleur
@@ -34,7 +36,8 @@ public class DienstregelingCanvas extends JPanel {
 	}
 	
 	//Tekent de planning van de dienstregeling in de applet
-	public void tekenDienstregeling(Graphics g, Dienstregeling dienstregeling) {
+	public void tekenDienstregeling(Graphics g, Dienstregeling dienstregeling) { //HIER WORDT DE PASSKM OP HET SCHERM GEZET
+//		if dienstregeling.PK is not 0 then use it below
 		double tmp = (double) dienstregeling.telPassagiersKilometers() / 1000;
 		g.drawString(tmp+" x1000 passenger kilometers", 10, 20);
 		tekenTijdlijn(0, 40,g);

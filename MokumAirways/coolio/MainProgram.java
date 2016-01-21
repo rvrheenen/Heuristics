@@ -34,8 +34,9 @@ public class MainProgram {
 		return data.PASSENGERS;
 	}
 	
-	public String[][] getSchedule(int[][] a){
+	public String[][] getSchedule(int[][] a, int[][] b){
 		data.PASSENGERS = a;
+		data.AFSTAND 	= b;
 		currentStad = startCity;
 		int[] theOne = {344,314,146,352};
 		h = new Heuristic(theOne);
@@ -78,7 +79,7 @@ public class MainProgram {
 					return true;
 				}
 			} else {
-				int newTime = currentTime + flyTime(x) + refuel;
+				int newTime = currentTime + flyTime(x);
 				if(newTime < maxTime){
 					return true;
 				}
@@ -92,7 +93,7 @@ public class MainProgram {
 		int totalTime = currentTime + flyTime(dest) + flyTime(startCity);
 		if(totalTime < maxTime){
 			if(KMsLeft - data.AFSTAND[currentStad][dest] - data.AFSTAND[dest][startCity] < 0){
-				totalTime ++;
+				totalTime += land;
 			}
 			if(totalTime < maxTime){
 				return true;

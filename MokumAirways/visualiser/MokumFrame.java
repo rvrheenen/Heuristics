@@ -159,32 +159,11 @@ public class MokumFrame extends JFrame {
 		frame.redraw(200);
 	}
 
-	// Maakt een random dienstregeling aan
-	// || In deze methode zou je je algoritme kunnen plaatsen in plaats van de 'domme' random methode die nu gebruikt wordt
+	// THIS IS WHERE THE MAGIC IS CALLED
 	public Dienstregeling maakDienstregeling() {
-		// Dummy data for 6 planes
-//		String[][] youri = 
-//			{
-//					{"0","1","9","1","26T","0", "!", "", "", ""},
-//					{"0", "2", "3T", "0", "!", "", "", "", "", ""},
-//					{"0", "5", "4", "1T", "0", "!", "", "", "", ""},
-//					{"0", "8", "7T", "0", "!", "", "", "", "", ""},
-//					{"0", "11", "12T", "0", "!", "", "", "", "", ""},
-//					{"0", "9", "6T", "0", "!", "", "", "", "", ""},
-//			};
-		
 		coolio.MainProgram c = new coolio.MainProgram();
-		
-		String[][] algo = c.getSchedule(Dienstregeling.PASSENGERS);
-		
-		for (int i = 0; i < algo.length; i++){
-			for (int j = 0; j < algo[i].length; j++){
-				System.out.printf("%s ", algo[i][j]);
-			}
-			System.out.println();
-		}
-		
-		Dienstregeling d = new Dienstregeling(algo);
+		String[][] algo  	 = c.getSchedule(Dienstregeling.PASSENGERS, City.AFSTAND);
+		Dienstregeling d 	 = new Dienstregeling(algo);
 		return d;
 	}
 

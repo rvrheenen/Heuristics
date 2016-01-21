@@ -8,10 +8,10 @@ public class Heuristic {
 	int numberOfHeurs = 4;
 	int totalTries;
 	static final int 
-				KM = 0,
-				TIME = 1,
-				FUEL = 2,
-				DIST = 3,
+				KM 	   = 0,
+				TIME   = 1,
+				FUEL   = 2,
+				DIST   = 3,
 				RESULT = 4;
 				
 	Heuristic(int total_tries){
@@ -23,10 +23,10 @@ public class Heuristic {
 	}
 	
 	Heuristic(int[] a){
-		heuristics = new int[1][5];
+		heuristics 			= new int[1][5];
 		heuristics[0][DIST] = a[0];
 		heuristics[0][FUEL] = a[1];
-		heuristics[0][KM] = a[2];
+		heuristics[0][KM] 	= a[2];
 		heuristics[0][TIME] = a[3];
 	}
 	

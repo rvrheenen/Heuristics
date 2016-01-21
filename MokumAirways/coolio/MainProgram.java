@@ -5,7 +5,7 @@ public class MainProgram {
 	int currentStad;
 	int currentTime = 0;
 	static int maxTime = 21 * 60;
-	static int refuel = 60;
+	static int refuel = 100;
 	static int land = 60;
 	static int speed = 800;
 	int totalWorth = 0;
@@ -199,7 +199,7 @@ public class MainProgram {
 			next = ""+bestCity;
 			currentTime += (data.AFSTAND[currentStad][bestCity] / speed)*60 + land;
 			if(needToTank(bestCity)){
-				currentTime += refuel*2;
+				currentTime += refuel;
 				System.out.println("REFUEL!!!!");
 				next = next+"T";
 				KMsLeft = maxKMs;

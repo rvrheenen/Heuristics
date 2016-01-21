@@ -5,7 +5,7 @@ public class MainProgram {
 	int currentStad;
 	int currentTime = 0;
 	static int maxTime = 21 * 60;
-	static int refuel = 60;
+	static int refuel = 100;
 	static int land = 60;
 	static int speed = 800;
 	int totalWorth = 0;

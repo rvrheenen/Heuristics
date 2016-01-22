@@ -15,7 +15,7 @@ public class Dienstregeling {
 	public static int[][] PASSENGERS = getPassengersArray(0);
 	
 	private static final int MINUTEN_PER_DAG = 1200; 		//Het aantal minuten waarin gevlogen kan worden (20*60)
-	private static final int VLOOTGROOTTE 	 = 6;			//Het aantal vliegtuigen in de vloot van Mokum Airlines
+	public static final int VLOOTGROOTTE 	 = 6;			//Het aantal vliegtuigen in de vloot van Mokum Airlines
 	private					 Vliegtuig[]	dienstRegeling;	//De verzameling vliegtuigen van Mokum Airlines
 	
 	public int PK = 0;

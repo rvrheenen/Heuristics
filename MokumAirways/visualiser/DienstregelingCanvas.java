@@ -36,7 +36,9 @@ public class DienstregelingCanvas extends JPanel {
 	//Tekent de planning van de dienstregeling in de applet
 	public void tekenDienstregeling(Graphics g, Dienstregeling dienstregeling) {
 		double tmp = (double) dienstregeling.telPassagiersKilometers() / 1000;
-		g.drawString(tmp+" x1000 passenger kilometers", 10, 20);
+		double max = 2547.287*dienstregeling.VLOOTGROOTTE;
+		double percent = (double)(((int)((tmp/max)*10000)))/100;
+		g.drawString(tmp+"/"+max+" x1000 PK = "+percent+"%", 10, 20);
 		tekenTijdlijn(0, 40,g);
 		g.setColor(Color.gray);
 		g.fillRect(130, 50, (int) (32 * (60 * scaleFactor)), 80);

@@ -39,6 +39,7 @@ public class MainProgram {
 		data.AFSTAND 	= b;
 		currentStad = startCity;
 		int[] theOne = {344,314,146,352};
+		//time dist pass fuel
 		h = new Heuristic(theOne);
 		for(int i = 0; i < numberOfPlanes; i++){
 			schedule[i][0] = "0";

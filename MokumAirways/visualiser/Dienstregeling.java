@@ -12,7 +12,7 @@ public class Dienstregeling {
 	//Het geschatte aantal passagiers dat van rij Y naar kolom X wil vliegen (gaat op index)
 	// getPassengerArray moet een varriabele mee krijgen:
 	// 0: default array 1: fixed passengers 2: less in eastern-Europe
-	public static int[][] PASSENGERS = getPassengersArray(2);
+	public static int[][] PASSENGERS = getPassengersArray(0);
 	
 	private static final int MINUTEN_PER_DAG = 1200; 		//Het aantal minuten waarin gevlogen kan worden (20*60)
 	private static final int VLOOTGROOTTE 	 = 6;			//Het aantal vliegtuigen in de vloot van Mokum Airlines

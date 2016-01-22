@@ -108,19 +108,13 @@ public class MainProgram {
 	}
 	
 	public int score(int destination, int passengers){
-		int total = 0;
-		
+		int score = 0;
 		int afstand = data.AFSTAND[currentStad][destination];
-		// time
-		total += flyTime(destination) * h.getTime();
-		// dist
-		total += afstand * h.getDist();
-		// pass km
-		total += afstand * passengers * h.getKMs();
-		// fuel
-		total -= (KMsLeft - afstand)* h.getDist();
-
-		return total;
+		score += flyTime(destination) * h.getTime(); // time heuristic
+		score += afstand * h.getDist(); 			 // distance heuristic
+		score += afstand * passengers * h.getKMs();	 // passenger km heuristic
+		score -= (KMsLeft - afstand)* h.getDist(); 	 // fuel heuristic
+		return score;
 	}
 	
 	public int maxPassenger(int destination){

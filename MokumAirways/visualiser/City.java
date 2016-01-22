@@ -7,7 +7,7 @@ import java.util.Random;
 public class City {
 	//Afstanden tussen elke stad (symmetrisch op de diagnoaal)
 	
-	public static final int[][] AFSTAND = getDistanceArray(1); //0 is default, 1 is limited flight options
+	public static final int[][] AFSTAND = getDistanceArray(0); //0 is default, 1 is limited flight options
 	
 	private String name;
 	private int x;

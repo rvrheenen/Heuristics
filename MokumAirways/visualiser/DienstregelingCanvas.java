@@ -2,6 +2,7 @@ package visualiser;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.text.DecimalFormat;
 
 import javax.swing.JPanel;
 
@@ -36,9 +37,11 @@ public class DienstregelingCanvas extends JPanel {
 	//Tekent de planning van de dienstregeling in de applet
 	public void tekenDienstregeling(Graphics g, Dienstregeling dienstregeling) {
 		double tmp = (double) dienstregeling.telPassagiersKilometers() / 1000;
+		tmp = dienstregeling.getPK()/1000;
 		double max = 2547.287*dienstregeling.VLOOTGROOTTE;
-		double percent = (double)(((int)((tmp/max)*10000)))/100;
-		g.drawString(tmp+"/"+max+" x1000 PK = "+percent+"%", 10, 20);
+//		double percent = (double)(((int)((tmp/max)*10000)))/100;
+		double percent = (tmp/max)*100;
+		g.drawString(Round2d(tmp)+"/"+Round2d(max)+" (x1000 PK) = "+Round2d(percent)+"%", 10, 20);
 		tekenTijdlijn(0, 40,g);
 		g.setColor(Color.gray);
 		g.fillRect(130, 50, (int) (32 * (60 * scaleFactor)), 80);
@@ -47,6 +50,16 @@ public class DienstregelingCanvas extends JPanel {
 		}
 	}
 	
+	double Round2d(double val) {
+		DecimalFormat df2;
+		if (((val/val)-1) == val%1) {
+			System.out.print("test");
+			return (double)(int) val;
+		} else {
+			df2 = new DecimalFormat("###.##");
+			return Double.valueOf(df2.format(val));
+		}
+	}
 	
 	//Tekent een route in de applet
 	public void tekenRoute(Graphics g, Vliegtuig vliegtuig, int vliegtuigNr, int xPointer, int yPointer) {

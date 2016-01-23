@@ -164,6 +164,8 @@ public class MokumFrame extends JFrame {
 		coolio.MainProgram c = new coolio.MainProgram();
 		String[][] algo  	 = c.getSchedule(Dienstregeling.PASSENGERS, City.AFSTAND);
 		Dienstregeling d 	 = new Dienstregeling(algo);
+		int total = Integer.parseInt(algo[5][49]);
+		d.setPK(total); 
 		return d;
 	}
 

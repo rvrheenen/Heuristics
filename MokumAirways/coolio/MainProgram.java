@@ -16,6 +16,7 @@ public class MainProgram {
 	static int startCity = 0;
 	static int theoreticalMax = 2547287;
 	static int numberOfPlanes = 6;
+	int vTotal = 0;
 	Heuristic h = new Heuristic(tries);
 	String[][] schedule = new String[6][50];
 
@@ -46,6 +47,7 @@ public class MainProgram {
 			doOne(i);
 			resetForNextPlane();
 		}
+		schedule[5][49] = Integer.toString(vTotal);
 		return schedule;
 	}
 
@@ -236,6 +238,7 @@ public class MainProgram {
 		KMsLeft -= data.AFSTAND[currentStad][startCity];
 		System.out.println("Nog in de tank: "+KMsLeft);
 		System.out.println("Totaal: "+totalWorth);
+		vTotal += totalWorth;
 		if(KMsLeft < 0){
 			totalWorth = 0;
 		}

@@ -4,9 +4,9 @@ import java.util.Random;
 
 public class Heuristic {
 	int[][] heuristics;
-	int current = 0;
-	int numberOfHeurs = 4;
-	int totalTries;
+	int 	current = 0;
+	int 	numberOfHeurs = 4;
+	int 	totalTries;
 	static final int 
 				KM 	   = 0,
 				TIME   = 1,
@@ -78,6 +78,5 @@ public class Heuristic {
 				heuristics[current][i] = generateRandom(1, 20);
 			}
 		}
-		
 	}
 }

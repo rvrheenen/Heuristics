@@ -125,17 +125,17 @@ public class Vliegtuig {
 		for (int i = 1; i < aantalLandingen; i++) {
 			Landing punt = route[i];
 			double tmp = (double) punt.geefAfstandNaar(route[i - 1].geefLoc()) / VLIEGTUIG_SNELHEID * 60;
-			System.out.printf("|%d: %f, %d ", i, tmp, punt.geefTotaleGrondtijd());
+//			System.out.printf("|%d: %f, %d ", i, tmp, punt.geefTotaleGrondtijd());
 			routeTijd += tmp + punt.geefTotaleGrondtijd();
 		}
 
 		// Bij de laatste landing maakt het niet meer uit hoe lang het toestel aan de grond staat
 		routeTijd -= route[aantalLandingen - 1].geefTotaleGrondtijd();
 		if (routeTijd < 0) {
-			System.out.println(0);
+//			System.out.println(0);
 			return 0;
 		}
-		System.out.println(routeTijd);
+//		System.out.println(routeTijd);
 		return (int) routeTijd;
 	}
 

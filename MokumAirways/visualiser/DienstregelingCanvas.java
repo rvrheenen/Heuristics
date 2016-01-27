@@ -53,7 +53,6 @@ public class DienstregelingCanvas extends JPanel {
 	double Round2d(double val) {
 		DecimalFormat df2;
 		if (((val/val)-1) == val%1) {
-			System.out.print("test");
 			return (double)(int) val;
 		} else {
 			df2 = new DecimalFormat("###.##");

@@ -3,12 +3,13 @@ package coolio;
 import java.util.ArrayList;
 
 public class OpgeslagenData {
+	
 	OpgeslagenData(){
 		
 	}
 	
 	// cityname to
-		public String[] steden =  {"Amsterdam", "Athens", "Barcelona", "Berlin", "Bucharest", "Budapest", 
+	public String[] steden =  {"Amsterdam", "Athens", "Barcelona", "Berlin", "Bucharest", "Budapest", 
 				"Copenhagen", "Dublin", "Glasgow", "Helsinki", "Istambul", "Kiev", "Lisbon", "London", "Madrid", 
 				"Malta", "Minsk", "Moscow", "Munich", "Oslo", "Paris", "Reykjavik", "Rome", "Sofia", "Stockholm", 
 				"Tallinn", "Vienna", "Warsaw" };

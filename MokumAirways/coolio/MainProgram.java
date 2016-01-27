@@ -1,22 +1,21 @@
 package coolio;
 
 public class MainProgram {
-	
-			int 	currentStad;
-			double 	currentTime	   = 0;
 	static 	double 	maxTime 	   = 20 * 60;
 	static 	double 	refuel  	   = 60;
 	static 	double 	land 		   = 60;
 	static 	int 	speed 		   = 800;
-			int 	totalWorth 	   = 0;
 	static 	int 	maxPassengers  = 199;
-			int 	KMsLeft 	   = 3199;
 	static 	int 	maxKMs 		   = 3199;
 	static 	int 	tries 		   = 200000;
 	static 	int 	startCity 	   = 0;
 	static 	int 	theoreticalMax = 2547287;
 	static 	int 	numberOfPlanes = 6;
+			double 	currentTime	   = 0;
+			int 	totalWorth 	   = 0;
+			int 	KMsLeft 	   = 3199;
 			int 	vTotal 		   = 0;
+			int 	currentStad;
 			
 	OpgeslagenData 	data 	 = new OpgeslagenData();
 	Heuristic 		h 		 = new Heuristic(tries);
@@ -40,7 +39,7 @@ public class MainProgram {
 		data.PASSENGERS = a;
 		data.AFSTAND   	= b;
 		currentStad  	= startCity;
-		int[] hValues 	= { 344, 314, 146, 352 }; // The precalculated heuristics of time dist pass fuel,
+		int[] hValues 	= {14,10,18,19}; // The precalculated heuristics of time dist pass fuel
 		h 				= new Heuristic(hValues);
 		
 		for (int i = 0; i < numberOfPlanes; i++) {
@@ -67,47 +66,37 @@ public class MainProgram {
 		currentStad = startCity;
 	}
 
-	public boolean needToTank(int x) {
-		int newDistance = KMsLeft - data.AFSTAND[currentStad][x];
-		if (newDistance < 0) return true;
-		return false;
-	}
-
-	public boolean possibleFlight(int x) {
+	public boolean possibleFlight(int x) { // Check if the flight is possible 
 		if (canFlyBack(x)) {
-			if (needToTank(x)) {
-				double newTime = currentTime + flyTime(x) + refuel;
-				if (newTime < maxTime) {
-					return true;
-				}
-			} else {
-				double newTime = currentTime + flyTime(x);
-				if (newTime < maxTime) {
-					return true;
-				}
-			}
+			double newTime = currentTime + flyTime(x);
+			if (needToTank(x)) newTime += refuel;
+			return (newTime < maxTime);
 		}
 		return false;
 	}
 
-	public boolean canFlyBack(int dest) {
+	public boolean needToTank(int x) { // Check if necessary to tank to get to destination
+		int newDistance = KMsLeft - data.AFSTAND[currentStad][x];
+		if (newDistance < 0) return true;
+		return false;
+	}
+	
+	public boolean canFlyBack(int dest) { // Check if Amsterdam is still reachable from targetted destination
 		double totalTime = currentTime + flyTime(dest) + flyTime(startCity);
 		if (totalTime < maxTime) {
 			if (KMsLeft - data.AFSTAND[currentStad][dest] - data.AFSTAND[dest][startCity] < 0) {
 				totalTime += land;
 			}
-			if (totalTime < maxTime) {
-				return true;
-			}
+			return (totalTime < maxTime);
 		}
 		return false;
 	}
 
-	public double flyTime(int a) {
+	public double flyTime(int a) { // Calculates flying time for current city to  
 		return (double)data.AFSTAND[currentStad][a] / 800 * 60 + 60;
 	}
 
-	public int score(int destination, int passengers) {
+	public int score(int destination, int passengers) { // Applies heuristics to the destination and passengers count
 		int score = 0;
 		int afstand = data.AFSTAND[currentStad][destination];
 		score += flyTime(destination) * h.getTime(); // time heuristic
@@ -117,7 +106,7 @@ public class MainProgram {
 		return score;
 	}
 
-	public int maxPassenger(int destination) {
+	public int maxPassenger(int destination) { // Gets the maximum amount of passenger which can be taken to destination
 		if (data.PASSENGERS[currentStad][destination] > maxPassengers) {
 			return maxPassengers;
 		} else {
@@ -125,7 +114,7 @@ public class MainProgram {
 		}
 	}
 
-	public void doALot() {
+	public void doALot() { // Used when calculating heuristics
 		int[][] totals = new int[20][5];
 		for (int j = 0; j < 20; j++) {
 			h = new Heuristic(tries);
@@ -152,9 +141,9 @@ public class MainProgram {
 	}
 
 	public void start(String[] args) {
-		int switcher = 1;
+		int switcher = 1; // SWITCH 1: Generate schedules, 2: Generate heuristics
 		if (switcher == 1) {
-			int[] hValues = { 344, 314, 146, 352 };
+			int[] hValues = {14,10,18,19}; // The precalculated heuristics of time dist pass fuel
 			h = new Heuristic(hValues);
 			int total = 0;
 			for (int i = 0; i < numberOfPlanes; i++) {
@@ -164,18 +153,17 @@ public class MainProgram {
 				resetForNextPlane();
 			}
 			double percentage = (double) total / ((double) theoreticalMax * (double) numberOfPlanes) * 100.0;
-			percentage 		  = Math.round(percentage);
-			
+				   percentage = Math.round(percentage);
 			System.out.println("Total for schedule all planes: " + total + " - " + percentage + "%");
 		} else {
 			doALot();
 		}
 	}
 
-	public int doOne(int whichPlane){
-		int    bestWorth = 10;
+	public int doOne(int whichPlane){ // Generate one flight schedule. 
 		String next 	 = "";
-		int    scheduleI = 1;
+		int    scheduleI = 1; 
+		int    bestWorth = 10;
 		
 		while(bestWorth != 0){
 			int bestCity = currentStad;
@@ -190,20 +178,20 @@ public class MainProgram {
 				}
 			}
 			if(bestWorth != 0){
-				int passengersToBring = maxPassenger(bestCity);
-				next 				  = ""+bestCity;
-				double tempTime 	  = ((double)data.AFSTAND[currentStad][bestCity] / speed)*60 + land;
+				int 	passengersToBring = maxPassenger(bestCity);
+						next 			  = ""+bestCity;
+				double 	tempTime 	  	  = ((double)data.AFSTAND[currentStad][bestCity] / speed)*60 + land;
+				
 				System.out.println("This flight takes: "+tempTime);
 				currentTime += tempTime;
 				
 				if(needToTank(bestCity)){
+					System.out.println("Refueling");
 					currentTime += (double)refuel;
-					System.out.println("REFUEL!!!!");
-					next = next+"T";
-					KMsLeft = maxKMs;
+					next 		= next + "T";
+					KMsLeft 	= maxKMs;
 				}
 				KMsLeft -= data.AFSTAND[currentStad][bestCity];
-				
 				int saveKms = data.AFSTAND[currentStad][bestCity] * passengersToBring;
 				totalWorth += saveKms;
 				
@@ -223,9 +211,9 @@ public class MainProgram {
 		int passengersToBring = maxPassenger(startCity);
 		
 		if(needToTank(startCity)){
+			System.out.println("Refueling");
 			next 	= next+"T";
 			KMsLeft = maxKMs;
-			System.out.println("REFUEL!!!!");
 		}
 		
 		schedule[whichPlane][scheduleI] = next;

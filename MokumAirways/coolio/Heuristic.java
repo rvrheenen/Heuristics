@@ -7,6 +7,7 @@ public class Heuristic {
 	int 	current = 0;
 	int 	numberOfHeurs = 4;
 	int 	totalTries;
+	
 	static final int 
 				KM 	   = 0,
 				TIME   = 1,
@@ -14,7 +15,7 @@ public class Heuristic {
 				DIST   = 3,
 				RESULT = 4;
 				
-	Heuristic(int total_tries){
+	Heuristic(int total_tries){ // Generate the matrix space for heuristics calculation
 		heuristics = new int[total_tries][5];
 		for(int i = 0; i < numberOfHeurs; i++){
 			heuristics[current][i] = generateRandom(1, 400);
